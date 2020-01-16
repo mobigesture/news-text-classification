@@ -27,6 +27,10 @@ def clean_text(text):
     text = text.strip(' ')
     return text
 
+def test_model(data, model):
+    prediction = model.predict(data)
+    return prediction[0]
+
 # Read json file
 df = pd.read_json("./News_Category_Dataset_v2.json",lines=True)
 
@@ -56,3 +60,7 @@ LREG_pipeline = Pipeline([
 LREG_pipeline.fit(X_train, Y_train)
 pred = LREG_pipeline.predict(X_test)
 print('Accuracy score : %.3f ' % accuracy_score(Y_test, pred))
+
+test_data = ["Priyanka Chopra and Nick Jonas, who attended the 77th Golden Globe Awards together on Monday morning as presenters surely made a head-turning appearance (but more on that later). This is the story of how Priyanka and Nick, stole our hearts with their PDA on the Golden Globes red carpet."]
+category = test_model(test_data, LREG_pipeline)
+print(test_data[0] + " - " + category)
