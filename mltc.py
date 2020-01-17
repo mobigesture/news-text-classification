@@ -8,6 +8,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.svm import LinearSVC
 import numpy as np
 
 def clean_text(text):
@@ -59,7 +61,27 @@ LREG_pipeline = Pipeline([
 # fit and predict
 LREG_pipeline.fit(X_train, Y_train)
 pred = LREG_pipeline.predict(X_test)
-print('Accuracy score : %.3f ' % accuracy_score(Y_test, pred))
+print('Logistic Regression Accuracy score : %.3f ' % accuracy_score(Y_test, pred))
+
+# create a pipeline with TfidVectorizer, OneVsRestClassifier and MultinomialNB
+NB_pipeline = Pipeline([
+                ('tfidf', TfidfVectorizer(stop_words=stop_words,use_idf=True, max_df=0.95)),
+                ('clf', OneVsRestClassifier(MultinomialNB(fit_prior=True, class_prior=None))),
+            ])
+
+# fit and predict
+NB_pipeline.fit(X_train, Y_train)
+pred = NB_pipeline.predict(X_test)
+print('Multinomial Naive Bayes Accuracy score : %.3f ' % accuracy_score(Y_test, pred))
+
+SVC_pipeline = Pipeline([
+                ('tfidf', TfidfVectorizer(stop_words=stop_words)),
+                ('clf', OneVsRestClassifier(LinearSVC(), n_jobs=1)),
+            ])
+# fit and predict
+SVC_pipeline.fit(X_train, Y_train)
+pred = SVC_pipeline.predict(X_test)
+print('Linear SVC Accuracy score : %.3f ' % accuracy_score(Y_test, pred))
 
 test_data = ["Priyanka Chopra and Nick Jonas, who attended the 77th Golden Globe Awards together on Monday morning as presenters surely made a head-turning appearance (but more on that later). This is the story of how Priyanka and Nick, stole our hearts with their PDA on the Golden Globes red carpet."]
 category = test_model(test_data, LREG_pipeline)
