@@ -109,6 +109,9 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+bin/
+include/
+
 
 # Spyder project settings
 .spyderproject
@@ -124,6 +127,10 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+#custom
 News_Category_Dataset_v2.json
+*.model
+
 # Pyre type checker
 .pyre/

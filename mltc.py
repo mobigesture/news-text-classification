@@ -10,6 +10,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.svm import LinearSVC
+import joblib
 import numpy as np
 
 def clean_text(text):
@@ -62,6 +63,7 @@ LREG_pipeline = Pipeline([
 LREG_pipeline.fit(X_train, Y_train)
 pred = LREG_pipeline.predict(X_test)
 print('Logistic Regression Accuracy score : %.3f ' % accuracy_score(Y_test, pred))
+joblib.dump(LREG_pipeline, 'lin-reg.model')
 
 # create a pipeline with TfidVectorizer, OneVsRestClassifier and MultinomialNB
 NB_pipeline = Pipeline([
@@ -73,7 +75,9 @@ NB_pipeline = Pipeline([
 NB_pipeline.fit(X_train, Y_train)
 pred = NB_pipeline.predict(X_test)
 print('Multinomial Naive Bayes Accuracy score : %.3f ' % accuracy_score(Y_test, pred))
+joblib.dump(NB_pipeline, 'multi-nb.model')
 
+# create a pipeline with TfidVectorizer, OneVsRestClassifier and Linear SVC
 SVC_pipeline = Pipeline([
                 ('tfidf', TfidfVectorizer(stop_words=stop_words)),
                 ('clf', OneVsRestClassifier(LinearSVC(), n_jobs=1)),
@@ -82,6 +86,7 @@ SVC_pipeline = Pipeline([
 SVC_pipeline.fit(X_train, Y_train)
 pred = SVC_pipeline.predict(X_test)
 print('Linear SVC Accuracy score : %.3f ' % accuracy_score(Y_test, pred))
+joblib.dump(SVC_pipeline, 'lin-svc.model')
 
 test_data = ["Priyanka Chopra and Nick Jonas, who attended the 77th Golden Globe Awards together on Monday morning as presenters surely made a head-turning appearance (but more on that later). This is the story of how Priyanka and Nick, stole our hearts with their PDA on the Golden Globes red carpet."]
 category = test_model(test_data, LREG_pipeline)
