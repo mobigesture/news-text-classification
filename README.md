@@ -1,5 +1,11 @@
 # News Data Classification
-We have a dataset which categorized news into POLITICS, SPORTS, ENTERTAINMENT etc. We have taken this dataset from [here](http://mlg.ucd.ie/datasets/bbc.html). We train our model using [sklearn multiclass](https://scikit-learn.org/stable/modules/multiclass.html) [OneVsRestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.multiclass.OneVsRestClassifier.html) with [Logistic Regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html) and feature extraction using [TFID Vectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html).
+We have a dataset which categorized news into POLITICS, SPORTS, ENTERTAINMENT etc. We have taken this dataset from [here](http://mlg.ucd.ie/datasets/bbc.html). We train our model using [sklearn multiclass](https://scikit-learn.org/stable/modules/multiclass.html) [OneVsRestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.multiclass.OneVsRestClassifier.html) with 
+
+1. [Logistic Regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
+2. [Multinomian Naive Bayes](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html)
+3. [Linear Support Vector Classification](https://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html) 
+
+and feature extraction using [TFID Vectorizer](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html).
 
 # Understanding Data
 The data we are using is structured as:
